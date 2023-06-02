@@ -31,9 +31,9 @@ export class App extends Component {
   };
 
   addContact = newContact => {
-    //console.log(newContact, 'Contact')
+   
 
-    newContact.id = nanoid();
+   
     const nameToLowerCase = newContact.name.toLowerCase();
 
     if (
