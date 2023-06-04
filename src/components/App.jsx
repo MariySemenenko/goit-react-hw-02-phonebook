@@ -1,13 +1,12 @@
 import { Component } from 'react';
 import { ContactForm } from './ContactForm/ContactForm';
-import { nanoid } from 'nanoid';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
-
-
+import { Div, H2 } from './StyledApp.styled';
 
 export class App extends Component {
-  state = { //визначаю два поля масив і рядок
+  state = {
+    //визначаю два поля масив і рядок
     contacts: [
       { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
       { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
@@ -17,7 +16,8 @@ export class App extends Component {
     filter: '', //пошук контактів за іменем
   };
 
-  filterChange = e => {      //цей метод викликається при зміні значення фільтру і оновлюється коли користувач вводе значення
+  filterChange = e => {
+    //цей метод викликається при зміні значення фільтру і оновлюється коли користувач вводе значення
     this.setState({ filter: e.target.value });
   };
 
@@ -25,28 +25,35 @@ export class App extends Component {
     const { filter, contacts } = this.state;
     const normalizedFilter = filter.toLowerCase();
 
-    return contacts.filter(contact => //повертаємо відфільтрований масив 
-      contact.name.toLowerCase().includes(normalizedFilter)
+    return contacts.filter(
+      (
+        contact //повертаємо відфільтрований масив
+      ) => contact.name.toLowerCase().includes(normalizedFilter)
     );
   };
 
   addContact = newContact => {
-    //перевіряю чи існує контакт з однаковим ід
-    const existingContact = this.state.contacts.find(contact => contact.id === newContact.id);
+    //перевіряю чи існує контакт з однаковим id
+    const existingContact = this.state.contacts.find(
+      contact => contact.id === newContact.id
+    );
 
-    if (existingContact) { //якщо існує контакт
-        alert(`${newContact.name} ${newContact.number} is already in contacts`);
-        return;
+    if (existingContact) {
+      //якщо існує контакт
+      alert(`${newContact.name} ${newContact.number} is already in contacts`);
+      return;
     }
 
-    this.setState(prevState => ({ //якщо не існує то, оновлюємось та додаємось до попереднього масиву
-        contacts: [newContact, ...prevState.contacts],
+    this.setState(prevState => ({
+      //якщо не існує то, оновлюємось та додаємось до попереднього масиву
+      contacts: [newContact, ...prevState.contacts],
     }));
-};
+  };
 
   deleteContacts = id => {
+    //видаляю контакти по id
     this.setState(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== id),
+      contacts: prevState.contacts.filter(contact => contact.id !== id), //створюю новий контакт виключаючи попередній id
     }));
   };
 
@@ -55,10 +62,11 @@ export class App extends Component {
     const visibleFilter = this.visibleContacts();
 
     return (
-      <div>
+      // функція onSubmitData передається як властивість для додавання нового контакту
+      <Div>
         <ContactForm onSubmitData={this.addContact} />
 
-        <h2>Contacts {contacts.length}</h2>
+        <H2>Contacts {contacts.length}</H2>
         <Filter value={filter} onChange={this.filterChange} />
         {contacts.length ? (
           <ContactList
@@ -68,15 +76,14 @@ export class App extends Component {
         ) : (
           <p>No contacts in phonebook</p>
         )}
-      </div>
+      </Div>
     );
   }
 }
 
-
 // or
 // addContact = newContact => {  //функція додавання контактів
-   
+
 //   const nameToLowerCase = newContact.name.toLowerCase();
 
 //   if (

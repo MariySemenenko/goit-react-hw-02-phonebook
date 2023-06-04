@@ -1,16 +1,18 @@
 import { Component } from 'react';
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
+import { Form } from '../StyledApp.styled';
 
 export class ContactForm extends Component {
+  //тут зберігається імя та номер
   state = {
     name: '',
     number: '',
   };
 
   handleChange = ({ currentTarget }) => {
-    const { name, value } = currentTarget;
-    this.setState({ [name]: value });
+    const { name, value } = currentTarget; //отримую доступ до значення поля за допомогою currentTarget
+    this.setState({ [name]: value }); //оновлюю ключ у стейті за допомогою динамічного ключа
   };
 
   handleSubmit = e => {
@@ -18,11 +20,14 @@ export class ContactForm extends Component {
     const { name, number } = this.state;
     const { onSubmitData } = this.props;
     const newContact = {
+      //тут створюється новий об'єкт newContact
       id: nanoid(),
       name,
       number,
     };
-    onSubmitData(newContact);
+    onSubmitData(newContact); //передаю колбекom (App addContact) для нового контакту та
+    //скидання значень до початкових.
+
     this.setState({ name: '', number: '' });
   };
 
@@ -31,7 +36,7 @@ export class ContactForm extends Component {
 
     return (
       <>
-        <form onSubmit={this.handleSubmit}>
+        <Form onSubmit={this.handleSubmit}>
           <label>
             Name
             <input
@@ -59,12 +64,11 @@ export class ContactForm extends Component {
           </label>
 
           <button>Add Contact</button>
-        </form>
+        </Form>
       </>
     );
   }
 }
-
 
 ContactForm.propType = {
   onSubmitData: PropTypes.func.isRequired,

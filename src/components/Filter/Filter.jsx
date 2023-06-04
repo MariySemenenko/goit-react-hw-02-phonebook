@@ -1,15 +1,18 @@
 import PropTypes from 'prop-types';
-
-export const Filter = ({ value, onChange }) => {
+import { Label } from '../StyledApp.styled';
+//поле введення яке фільтрує контакти за іменем
+//value поточне значення при введені
+//onChange спрацьовує на зміни і передає нове значення
+export const Filter = ({ value, onChange }) => { //пропси
  
 
   return (
-    <div>
+    <Label>
       <label>
         Find contacts by name
         <input type="name" value={value} onChange={onChange} />
       </label>
-    </div>
+    </Label>
   );
 };
 

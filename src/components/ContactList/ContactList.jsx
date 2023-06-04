@@ -1,19 +1,27 @@
 import PropTypes from 'prop-types';
+import { Ul } from '../StyledApp.styled';
 
+// відображаю список контактів і маю можливість видаляти контакт зі списку
+//при кліку на кнопку виконується функція onDeletContacts
 export const ContactList = ({ contacts, onDeletContacts }) => {
   return (
-    <ul>
-      {contacts.map(({ name, number, id }) => (
-        <li key={id}>
-          <p>
-            {name}: {number}
-          </p>
-          <button type="button" onClick={() => onDeletContacts(id)}>
-            Delete
-          </button>
-        </li>
-      ))}
-    </ul>
+    <Ul>
+      {contacts.map(
+        (
+          { name, number, id } // кожен контакт має властивість name, number, id
+        ) => (
+          <li key={id}>
+            <p>
+              {name}: {number}
+            </p>
+
+            <button type="button" onClick={() => onDeletContacts(id)}>
+              Delete
+            </button>
+          </li>
+        )
+      )}
+    </Ul>
   );
 };
 
