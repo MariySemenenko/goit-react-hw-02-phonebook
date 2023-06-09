@@ -7,7 +7,7 @@ export class ContactForm extends Component {
   //тут зберігається імя та номер
   state = {
     name: '',
-    number: '',
+    number: '', 
   };
 
   handleChange = ({ currentTarget }) => {
